@@ -6,6 +6,8 @@ run chef-client remotely under Jenkins CI. ssh public-key authentication schema 
 prerequisites
 ===
 - ssh client
+- scp
+
 
 exported publishers
 ===

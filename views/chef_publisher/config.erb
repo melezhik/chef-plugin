@@ -1,11 +1,13 @@
 <%
 f = taglib("/lib/form")
 
-f.entry(:title => 'run deploy', :field => 'run_deploy', :description => "enable this to run deploy on remote machine") do
+f.entry(:title => 'enabled', :field => 'enabled', :description => "enable/disable this action") do
   f.checkbox
 end
-
-f.entry(:title => 'ssh host', :field => 'ssh_host', :description => "deployable remote machine") do
+f.entry(:title => 'chef json directory', :field => 'json_file_dir', :description => "directory where chef json file is located") do
+  f.textbox
+end
+f.entry(:title => 'ssh host', :field => 'ssh_host', :description => "remote host") do
   f.textbox
 end
 f.entry(:title => 'ssh login', :field => 'ssh_login', :description => "ssh login") do
