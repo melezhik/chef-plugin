@@ -18,6 +18,8 @@ class ChefPublisher < Jenkins::Tasks::Publisher
 
     def perform(build, launcher, listener)
 
+        env = build.native.getEnvironment()
+
         if @enabled == true
 
             listener.info "running chef-client on remote host: #{@ssh_host} ... "
