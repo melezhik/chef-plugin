@@ -1,13 +1,16 @@
+require 'erb'
+require 'json'
+
 class ChefPublisher < Jenkins::Tasks::Publisher
 
-    attr_accessor :enabled, :chef_json_url
+    attr_accessor :enabled, :chef_json_template
     attr_accessor :ssh_host, :ssh_login, :chef_client_config
 
     display_name "Run chef client on remote host"
 
     def initialize(attrs = {})
         @enabled = attrs["enabled"]
-        @chef_json_url = attrs["chef_json_url"]
+        @chef_json_template = attrs["chef_json_template"]
         @ssh_host = attrs["ssh_host"]
         @ssh_login = attrs["ssh_login"]
         @chef_client_config = attrs["chef_client_config"]
@@ -18,12 +21,28 @@ class ChefPublisher < Jenkins::Tasks::Publisher
 
     def perform(build, launcher, listener)
 
-        env = build.native.getEnvironment()
 
         if @enabled == true
 
-            listener.info "running chef-client on remote host: #{@ssh_host} ... "
+            # generate chef json file
+
+            listener.info "generate chef json from template"
+
+            env = build.native.getEnvironment()
+            job = build.send(:native).get_project.name
+            workspace = build.send(:native).workspace.to_s
+
+            renderer = ERB.new(@chef_json_template)
+            json_str = renderer.result
+            json_str.sub! '"{','{'
+            json_str.sub! '}"','}'
+
+            File.open("#{workspace}/chef.json", 'w') {|f| f.write(json_str) }
+
+            chef_json_url = "#{env['JENKINS_URL']}/job/#{job}/ws/chef.json"
             listener.info "chef_json url: #{chef_json_url}"
+
+            listener.info "running chef-client on remote host: #{@ssh_host} ... "
             cmd = []
             cmd << "export LC_ALL=#{env['LC_ALL']}" unless ( env['LC_ALL'].nil? || env['LC_ALL'].empty? )
             config_path = ''

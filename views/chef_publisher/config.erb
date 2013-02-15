@@ -4,17 +4,19 @@ f = taglib("/lib/form")
 f.entry(:title => 'enabled', :field => 'enabled', :description => "enable/disable this action") do
   f.checkbox
 end
-f.entry(:title => 'chef json file url', :field => 'chef_json_url', :description => "http url to chef json file") do
-  f.textbox
-end
 f.entry(:title => 'ssh host', :field => 'ssh_host', :description => "remote host") do
   f.textbox
 end
 f.entry(:title => 'ssh login', :field => 'ssh_login', :description => "ssh login") do
   f.textbox
 end
-f.entry(:title => 'chef-client config', :field => 'chef_client_config', :description => "optionally you may set path to chef client configuration file") do
-  f.textbox
+f.entry(:title => 'chef_json template', :field => 'chef_json_template', :description => "chef json template; this is ERB template.") do
+  f.textarea
+end
+f.advanced do    
+    f.entry(:title => 'chef-client config', :field => 'chef_client_config', :description => "optionally you may set path to chef client configuration file") do
+      f.textbox
+    end
 end
 
 %>
