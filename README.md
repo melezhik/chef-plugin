@@ -9,10 +9,10 @@ prerequisites
 ===
 - ssh client
 
-exported publishers
+exported builders
 ===
 
-## chef_publisher
+## chef_builder
 
 ![layout](https://raw.github.com/melezhik/chef-plugin/master/images/layout.png "layout")
 

@@ -1,7 +1,7 @@
 require 'erb'
 require 'json'
 
-class ChefPublisher < Jenkins::Tasks::Publisher
+class ChefPublisher < Jenkins::Tasks::Builder
 
     attr_accessor :enabled, :dry_run, :chef_json_template
     attr_accessor :ssh_host, :ssh_login, :chef_client_config
