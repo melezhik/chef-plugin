@@ -12,3 +12,4 @@ PLATFORMS
 
 DEPENDENCIES
   jenkins-plugin-runtime
+  json

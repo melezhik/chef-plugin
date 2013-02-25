@@ -4,6 +4,9 @@ f = taglib("/lib/form")
 f.entry(:title => 'enabled', :field => 'enabled', :description => "enable/disable this action") do
   f.checkbox
 end
+f.entry(:title => 'dry run', :field => 'dry_run', :description => "run in dry run mode") do
+  f.checkbox
+end
 f.entry(:title => 'ssh host', :field => 'ssh_host', :description => "remote host") do
   f.textbox
 end
