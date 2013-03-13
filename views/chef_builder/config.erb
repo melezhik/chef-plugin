@@ -20,6 +20,10 @@ f.advanced do
     f.entry(:title => 'chef-client config', :field => 'chef_client_config', :description => "optionally you may set path to chef client configuration file") do
       f.textbox
     end
+
+    f.entry(:title => 'color output', :field => 'color_output', :description => "enable/disable color outut") do
+      f.checkbox
+    end
 end
 
 %>

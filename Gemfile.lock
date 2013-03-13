@@ -1,15 +1,26 @@
+GIT
+  remote: git://github.com/melezhik/simple_console.git
+  revision: 9d09309f38bb0fc18f981575c35dec59b4746762
+  specs:
+    simple_console (0.0.1)
+      term-ansicolor
+
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     jenkins-plugin-runtime (0.2.3)
       json
       slop (~> 3.0.2)
+    json (1.7.7)
     json (1.7.7-java)
     slop (3.0.4)
+    term-ansicolor (1.1.1)
 
 PLATFORMS
   java
+  ruby
 
 DEPENDENCIES
   jenkins-plugin-runtime
   json
+  simple_console!
