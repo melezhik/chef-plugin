@@ -30,41 +30,39 @@ class ChefBuilder < Jenkins::Tasks::Builder
 
             # generate chef json file
 
-            listener.info "generate chef json from template"
 
             env = build.native.getEnvironment()
             job = build.send(:native).get_project.name
             workspace = build.send(:native).workspace.to_s
 
-            listener.info @sc.info('rendering ERB template ...')
+            listener.info @sc.info('rendering ERB template')
 
             renderer = ERB.new(@chef_json_template)
             json_str = renderer.result
             json_str.sub! '"{','{'
             json_str.sub! '}"','}'
 
-            listener.info @sc.info('parsing JSON ...')
+            listener.info @sc.info('parsing JSON string')
 
             JSON.parse(json_str)
 
-            listener.info @sc.info('saving JSON to file ...')
+            listener.info @sc.info('saving JSON to file')
 
             File.open("#{workspace}/chef.json", 'w') {|f| f.write(JSON.pretty_generate(JSON.parse(json_str))) }
 
             chef_json_url = "#{env['JENKINS_URL']}/job/#{job}/ws/chef.json"
 
-            listener.info @sc.info("#{chef_json_url}", :title => 'chef_json url')
+            listener.info @sc.info(chef_json_url, :title => 'chef json url')
 
             if @dry_run == true 
                 listener.info @sc.info('dry run mode is ON, so finish here, buy!')
             else
-                listener.info @sc.info("#{@ssh_host} ...", :title => 'running chef-client on remote host')
+                listener.info @sc.info(@ssh_host, :title => 'host')
                 cmd = []
                 cmd << "export LC_ALL=#{env['LC_ALL']}" unless ( env['LC_ALL'].nil? || env['LC_ALL'].empty? )
                 config_path = ''
                 config_path = " -c #{@chef_client_config}" unless (@chef_client_config.nil? ||  @chef_client_config.empty?)
                 cmd << "ssh #{@ssh_login}@#{@ssh_host} sudo chef-client -j #{chef_json_url} #{config_path}"
-                listener.info @sc.info("#{cmd.join(' && ')}", :title => 'ssh command')
                 build.abort unless launcher.execute("bash", "-c", cmd.join(' && '), { :out => listener } ) == 0
             end
     
