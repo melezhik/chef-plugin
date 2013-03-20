@@ -4,7 +4,7 @@ This is jenkins plugin to run chef-client on remote host
 
 # what it does
 
- 1) Connect to remote host with gien ssh login using ssh public-key authentication schema.
+ 1) Connect to remote host with given ssh login using ssh public-key authentication schema.
  2) Run chef-client on this host with chef json file generated from template.
 
 # features
@@ -26,7 +26,7 @@ If you define one, chef_publisher will generate chef json file, based on the tem
 # prerequisites
 - ssh client
 
-# Environment setup
+# Environment set-up
 
 You can set environment variables via "Jenkins/Configuration/Global properties/Environment variables" interface to adjust plugin behaviour.
 
