@@ -1,8 +1,9 @@
 GIT
   remote: git://github.com/melezhik/simple_console.git
-  revision: 9d09309f38bb0fc18f981575c35dec59b4746762
+  revision: 553fc2d6b630092c15bf384dd4d8de3ef16482dd
   specs:
     simple_console (0.0.1)
+      logger
       term-ansicolor
 
 GEM
@@ -13,6 +14,7 @@ GEM
       slop (~> 3.0.2)
     json (1.7.7)
     json (1.7.7-java)
+    logger (1.2.8)
     slop (3.0.4)
     term-ansicolor (1.1.1)
 
