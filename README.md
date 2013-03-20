@@ -16,10 +16,17 @@ This is jenkins plugin to run chef-client on remote host
 
 ![layout](https://raw.github.com/melezhik/chef-plugin/master/images/layout.png "layout")
 
-## chef json custom template
+## chef json template
 If you define one, chef json file will be generated based on this template. 
  - Check out chef [wiki](http://wiki.opscode.com/display/chef/Setting+the+run_list+in+JSON+during+run+time) to get know about chef json files.
- - You can use [ERB](http://www.stuartellis.eu/articles/erb/) constructions here
+ - This is ERB template, so you can use [ERB](http://www.stuartellis.eu/articles/erb/) syntax here:
+
+    <%
+    runlist = %w{foo bar baz}
+    chef_json = { :run_list => runlist.map { |r|  "recipe[#{r}]" } }
+    %>
+
+    <%= chef_json.to_json.to_s %>
 
 # prerequisites
 - ssh client
