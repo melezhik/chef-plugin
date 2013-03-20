@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC
     "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN"
     "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
-<html xml:lang='en' xmlns='http://www.w3.org/1999/xhtml' xmlns:svg='http://www.w3.org/2000/svg'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' xmlns:svg='http://www.w3.org/2000/svg'>
 <head><meta http-equiv='Content-type' content='application/xhtml+xml;charset=utf-8' /><title></title></head>
 <body>
 <h1 id='perlplugin'>perl-plugin</h1>
@@ -11,7 +11,7 @@
 
 <h1 id='what_it_does'>what it does</h1>
 
-<p>1) Connect to remote host with gien ssh login using ssh public-key authentication schema. 2) Run chef-client on this host with chef json file generated from template.</p>
+<p>1) Connect to remote host with given ssh login using ssh public-key authentication schema. 2) Run chef-client on this host, optionally with chef json file generated from template.</p>
 
 <h1 id='features'>features</h1>
 
@@ -25,18 +25,26 @@
 
 <h1 id='interface'>interface</h1>
 
-<h2 id='chef_builder'>chef_builder</h2>
+<p><img src='https://raw.github.com/melezhik/chef-plugin/master/images/layout.png' alt='layout' /></p>
 
-<p><img alt='layout' src='https://raw.github.com/melezhik/chef-plugin/master/images/layout.png' /></p>
+<h2 id='chef_json_template'>chef json template</h2>
 
-<h2 id='chef_json_custom_template'>chef json custom template</h2>
-
-<p>If you define one, chef_publisher will generate chef json file, based on the template.</p>
+<p>If you define one, chef json file will be generated based on this template.</p>
 
 <ul>
-<li>Check out chef <a href='http://wiki.opscode.com/display/chef/Setting+the+run_list+in+JSON+during+run+time'>wiki</a> to get know about chef json files.</li>
+<li>
+<p>Check out chef <a href='http://wiki.opscode.com/display/chef/Setting+the+run_list+in+JSON+during+run+time'>wiki</a> to get know about chef json files.</p>
+</li>
 
-<li>You can use <a href='http://www.stuartellis.eu/articles/erb/'>ERB</a> constructions here</li>
+<li>
+<p>This is ERB template, so you can use <a href='http://www.stuartellis.eu/articles/erb/'>ERB</a> syntax here:</p>
+
+<pre><code> &lt;%
+     runlist = %w{foo bar baz}
+     chef_json = { :run_list =&gt; runlist.map { |r|  &quot;recipe[#{r}]&quot; } }
+ %&gt;
+ &lt;%= chef_json.to_json.to_s %&gt;</code></pre>
+</li>
 </ul>
 
 <h1 id='prerequisites'>prerequisites</h1>
@@ -45,7 +53,7 @@
 <li>ssh client</li>
 </ul>
 
-<h1 id='environment_setup'>Environment setup</h1>
+<h1 id='environment_setup'>Environment set-up</h1>
 
 <p>You can set environment variables via &#8220;Jenkins/Configuration/Global properties/Environment variables&#8221; interface to adjust plugin behaviour.</p>
 
