@@ -14,8 +14,6 @@ This is jenkins plugin to run chef-client on remote host
 
 # interface
 
-## chef_builder
-
 ![layout](https://raw.github.com/melezhik/chef-plugin/master/images/layout.png "layout")
 
 ## chef json custom template
