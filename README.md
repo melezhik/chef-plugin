@@ -1,16 +1,16 @@
 # perl-plugin
 
-run chef-client remotely under Jenkins CI. 
-
-# fetaures
-- chef json file generated from custom ERB template
-- ssh public-key authentication schema is used
+This is jenkins plugin to run chef-client on remote host
 
 # what it does
 
- 1) Connect to remote host with gien ssh login using ssh public-key authentication schema
- 2) Run chef-client on this host with chef json file generated from template
+ 1) Connect to remote host with gien ssh login using ssh public-key authentication schema.
+ 2) Run chef-client on this host with chef json file generated from template.
 
+# features
+- chef json file generated from custom ERB template
+- ssh public-key authentication schema is used
+- dry run mode
 
 # interface
 
