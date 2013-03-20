@@ -5,7 +5,7 @@ This is jenkins plugin to run chef-client on remote host
 # what it does
 
  1) Connect to remote host with given ssh login using ssh public-key authentication schema.
- 2) Run chef-client on this host with chef json file generated from template.
+ 2) Run chef-client on this host, optionally with chef json file generated from template.
 
 # features
 - chef json file generated from custom ERB template
@@ -17,7 +17,7 @@ This is jenkins plugin to run chef-client on remote host
 ![layout](https://raw.github.com/melezhik/chef-plugin/master/images/layout.png "layout")
 
 ## chef json custom template
-If you define one, chef_publisher will generate chef json file, based on the template. 
+If you define one, chef json file will be generated based on this template. 
  - Check out chef [wiki](http://wiki.opscode.com/display/chef/Setting+the+run_list+in+JSON+during+run+time) to get know about chef json files.
  - You can use [ERB](http://www.stuartellis.eu/articles/erb/) constructions here
 
