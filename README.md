@@ -1,4 +1,4 @@
-# perl-plugin
+# chef-plugin
 
 This is jenkins plugin to run chef-client on remote host
 
