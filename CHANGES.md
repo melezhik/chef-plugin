@@ -1,3 +1,6 @@
+# 0.0.4
+- syntax error bugfix
+
 # 0.0.3
 - dry-run mode improved - real run of chef-client, but with --why-run flag
 

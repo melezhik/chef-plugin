@@ -68,7 +68,6 @@ class ChefBuilder < Jenkins::Tasks::Builder
             cmd << "ssh #{@ssh_login}@#{@ssh_host} sudo chef-client -j #{chef_json_url} #{config_path} #{why_run_flag}"
             build.abort unless launcher.execute("bash", "-c", cmd.join(' && '), { :out => listener } ) == 0
 
-        end
     
         end
 
