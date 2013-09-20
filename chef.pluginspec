@@ -1,7 +1,7 @@
 Jenkins::Plugin::Specification.new do |plugin|
   plugin.name = "chef"
   plugin.display_name = "Chef Plugin"
-  plugin.version = '0.0.2'
+  plugin.version = '0.0.3'
   plugin.description = 'run chef-client remotely under Jenkins CI'
 
   # You should create a wiki-page for your plugin when you publish it, see

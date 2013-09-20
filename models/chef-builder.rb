@@ -54,17 +54,23 @@ class ChefBuilder < Jenkins::Tasks::Builder
 
             listener.info @sc.info(chef_json_url, :title => 'chef json url')
 
+            why_run_flag = ''
             if @dry_run == true 
-                listener.info @sc.info('dry run mode is ON, so finish here, buy!')
+                listener.info @sc.info('dry run mode is ON, so will run chef-client with --why-run flag')
+                why_run_flag = '--why-run'
             else
-                listener.info @sc.info(@ssh_host, :title => 'host')
-                cmd = []
-                cmd << "export LC_ALL=#{env['LC_ALL']}" unless ( env['LC_ALL'].nil? || env['LC_ALL'].empty? )
-                config_path = ''
-                config_path = " -c #{@chef_client_config}" unless (@chef_client_config.nil? ||  @chef_client_config.empty?)
-                cmd << "ssh #{@ssh_login}@#{@ssh_host} sudo chef-client -j #{chef_json_url} #{config_path}"
-                build.abort unless launcher.execute("bash", "-c", cmd.join(' && '), { :out => listener } ) == 0
+
             end
+
+            listener.info @sc.info(@ssh_host, :title => 'host')
+            cmd = []
+            cmd << "export LC_ALL=#{env['LC_ALL']}" unless ( env['LC_ALL'].nil? || env['LC_ALL'].empty? )
+            config_path = ''
+            config_path = " -c #{@chef_client_config}" unless (@chef_client_config.nil? ||  @chef_client_config.empty?)
+            cmd << "ssh #{@ssh_login}@#{@ssh_host} sudo chef-client -j #{chef_json_url} #{config_path} #{why_run_flag}"
+            build.abort unless launcher.execute("bash", "-c", cmd.join(' && '), { :out => listener } ) == 0
+
+        end
     
         end
 

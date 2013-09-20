@@ -1,3 +1,6 @@
+# 0.0.3
+- dry-run mode improved - real run of chef-client, but with --why-run flag
+
 # 0.0.2
 - dry-run mode added
 - replace publisher by builder
