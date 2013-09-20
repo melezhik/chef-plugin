@@ -58,8 +58,6 @@ class ChefBuilder < Jenkins::Tasks::Builder
             if @dry_run == true 
                 listener.info @sc.info('dry run mode is ON, so will run chef-client with --why-run flag')
                 why_run_flag = '--why-run'
-            else
-
             end
 
             listener.info @sc.info(@ssh_host, :title => 'host')
