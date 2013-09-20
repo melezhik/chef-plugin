@@ -40,9 +40,9 @@ Setup your standard encoding.
 
     ru_RU.UTF-8
 
-# download link
+# download last stable release
 
-[http://repo.jenkins-ci.org/snapshots/org/jenkins-ci/ruby-plugins/chef/](http://repo.jenkins-ci.org/snapshots/org/jenkins-ci/ruby-plugins/chef/)
+[http://repo.jenkins-ci.org/snapshots/org/jenkins-ci/ruby-plugins/chef/0.0.3-SNAPSHOT/chef-0.0.3-20130920.071833-2.hpi]
 
 
 
