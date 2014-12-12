@@ -51,6 +51,9 @@
     <connection>scm:git:git://github.com/jenkinsci/chef-plugin.git</connection>
   </scm>
 
+
+</project>
+
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-surefire-plugin</artifactId>
@@ -58,6 +61,3 @@
         <skipTests>true</skipTests>
     </configuration>
 </plugin>
-
-</project>
-
