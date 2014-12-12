@@ -1,3 +1,6 @@
+# 0.1.0
+chef client explicitly run chef client with `-l info` 
+
 # 0.0.4
 - syntax error bugfix
 
