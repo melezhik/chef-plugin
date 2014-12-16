@@ -10,7 +10,7 @@ This is jenkins plugin to run chef-client on remote host
 # features
 - chef json file generated from custom ERB template
 - ssh public-key authentication schema is used
-- dry run mode
+- optionally may be run in chef client in why run mode 
 
 # interface
 
@@ -23,13 +23,19 @@ If you define one, chef json file will be generated based on this template.
 
         <%
             runlist = %w{foo bar baz}
-            chef_json = { :run_list => runlist.map { |r|  "recipe[#{r}]" } }
+            chef_json = { 
+                :run_list   => runlist.map { |r|  "recipe[#{r}]" } ,
+                :name       => 'alexey',
+                :language   => 'ruby'
+            }
         %>
         <%= chef_json.to_json.to_s %>
                                           
    
 # prerequisites
+- ruby-runtime jenkins plugin 
 - ssh client
+
 
 # Environment set-up
 
@@ -42,7 +48,8 @@ Setup your standard encoding.
 
 # download latest version
 
-[http://repo.jenkins-ci.org/snapshots/org/jenkins-ci/ruby-plugins/chef/0.1.0-SNAPSHOT/chef-0.1.0-20140911.141435-2.hpi]
+[http://repo.jenkins-ci.org/releases/org/jenkins-ci/ruby-plugins/chef/0.1.2/]
 
 
 
+  

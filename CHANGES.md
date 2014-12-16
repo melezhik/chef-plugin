@@ -1,3 +1,9 @@
+# 0.1.3
+documentation changes, cleaning up README.md
+
+# 0.1.0
+chef client explicitly run chef client with `-l info` 
+
 # 0.0.4
 - syntax error bugfix
 
