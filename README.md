@@ -47,7 +47,7 @@ Setup your standard encoding.
 
 # download latest version
 
-[http://repo.jenkins-ci.org/releases/org/jenkins-ci/ruby-plugins/chef/0.1.2/]
+[http://repo.jenkins-ci.org/releases/org/jenkins-ci/ruby-plugins/chef/0.1.3/]
 
 
 
