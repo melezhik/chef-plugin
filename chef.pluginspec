@@ -5,7 +5,7 @@ Jenkins::Plugin::Specification.new do |plugin|
   plugin.description = 'run chef-client remotely under Jenkins CI'
 
   # You should create a wiki-page for your plugin when you publish it, see
-  plugin.url = 'https://github.com/jenkinsci/chef-plugin'
+  plugin.url = 'https://github.com/melezhik/chef-plugin'
 
   # The first argument is your user name for jenkins-ci.org.
   plugin.developed_by "melezhik", "Alexey Melezhik <melezhik@gmail.com>"
