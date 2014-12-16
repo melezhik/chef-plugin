@@ -20,8 +20,6 @@ This is jenkins plugin to run chef-client on remote host
 If you define one, chef json file will be generated based on this template. 
  - Check out chef [wiki](http://wiki.opscode.com/display/chef/Setting+the+run_list+in+JSON+during+run+time) to get know about chef json files.
  - This is ERB template, so you can use [ERB](http://www.stuartellis.eu/articles/erb/) syntax here:
-```
-#!erb
         <%
             runlist = %w{foo bar baz}
             chef_json = { 
@@ -31,7 +29,6 @@ If you define one, chef json file will be generated based on this template.
             }
         %>
         <%= chef_json.to_json.to_s %>
-```                                          
    
 # prerequisites
 - ruby-runtime jenkins plugin 
