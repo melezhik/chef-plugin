@@ -69,7 +69,7 @@ class ChefBuilder < Jenkins::Tasks::Builder
 
             ssh_command = 'ssh'
 
-            if @ssh_identity_path
+            unless ( @ssh_identity_path.nil? || @ssh_identity_path.empty? )
                 ssh_command << " -i #{@ssh_identity_path}"
             end
 
