@@ -5,7 +5,7 @@ require 'simple/console'
 class ChefBuilder < Jenkins::Tasks::Builder
 
     attr_accessor :enabled, :dry_run, :chef_json_template, :color_output
-    attr_accessor :ssh_host, :ssh_login, :chef_client_config
+    attr_accessor :ssh_host, :ssh_login, :ssh_identity_path, :chef_client_config
 
     display_name "Run chef client on remote host"
 
@@ -17,6 +17,7 @@ class ChefBuilder < Jenkins::Tasks::Builder
         @ssh_login = attrs["ssh_login"]
         @chef_client_config = attrs["chef_client_config"]
         @color_output = attrs['color_output']
+        @ssh_identity_path = attrs['ssh_identity_path']
     end
 
     def prebuild(build, listener)
@@ -65,7 +66,14 @@ class ChefBuilder < Jenkins::Tasks::Builder
             cmd << "export LC_ALL=#{env['LC_ALL']}" unless ( env['LC_ALL'].nil? || env['LC_ALL'].empty? )
             config_path = ''
             config_path = " -c #{@chef_client_config}" unless (@chef_client_config.nil? ||  @chef_client_config.empty?)
-            cmd << "ssh #{@ssh_login}@#{@ssh_host} sudo chef-client -l info -j #{chef_json_url} #{config_path} #{why_run_flag}"
+
+            ssh_command = 'ssh'
+
+            if @ssh_identity_path
+                ssh_command << " -i #{@ssh_identity_path}"
+            end
+
+            cmd << "#{ssh_command} #{@ssh_login}@#{@ssh_host} sudo chef-client -l info -j #{chef_json_url} #{config_path} #{why_run_flag}"
             build.abort unless launcher.execute("bash", "-c", cmd.join(' && '), { :out => listener } ) == 0
 
     

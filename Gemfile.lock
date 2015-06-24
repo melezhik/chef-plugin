@@ -26,3 +26,6 @@ DEPENDENCIES
   jenkins-plugin-runtime
   json
   simple_console!
+
+BUNDLED WITH
+   1.10.4

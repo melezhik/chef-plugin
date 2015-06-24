@@ -17,6 +17,11 @@ f.entry(:title => 'chef_json template', :field => 'chef_json_template', :descrip
   f.textarea
 end
 f.advanced do    
+
+    f.entry(:title => 'ssh identity path path', :field => 'ssh_identity_path', :description => "optionally you may set file from which the identity (private key) for public key authentication is read.") do
+      f.textbox
+    end
+
     f.entry(:title => 'chef-client config', :field => 'chef_client_config', :description => "optionally you may set path to chef client configuration file") do
       f.textbox
     end

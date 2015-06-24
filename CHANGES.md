@@ -1,3 +1,6 @@
+# 0.1.4
+ssh identity path option
+
 # 0.1.3
 documentation changes, cleaning up README.md
 
