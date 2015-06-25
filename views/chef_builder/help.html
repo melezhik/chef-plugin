@@ -1,69 +1,66 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC
-    "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN"
-    "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
-<html xmlns:svg='http://www.w3.org/2000/svg' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
-<head><meta content='application/xhtml+xml;charset=utf-8' http-equiv='Content-type' /><title></title></head>
-<body>
-<h1 id='perlplugin'>perl-plugin</h1>
+<h1>SYNOPSIS</h1>
 
-<p>This is jenkins plugin to run chef-client on remote host</p>
+<p>This is jenkins plugin to run chef-client on remote host
+Brief description of how it works.</p>
 
-<h1 id='what_it_does'>what it does</h1>
+<p>Plugin starts ssh session on remote host using public key authentication and chef-client there.</p>
 
-<p>1) Connect to remote host with given ssh login using ssh public-key authentication schema. 2) Run chef-client on this host, optionally with chef json file generated from template.</p>
-
-<h1 id='features'>features</h1>
+<h1>Plugin general settings</h1>
 
 <ul>
-<li>chef json file generated from custom ERB template</li>
-
-<li>ssh public-key authentication schema is used</li>
-
-<li>dry run mode</li>
+<li>host - Specifies remote host to run chef client on.</li>
+<li>login -  Specifies the user to log in as on the remote machine.</li>
 </ul>
 
-<h1 id='interface'>interface</h1>
-
-<p><img alt='layout' src='https://raw.github.com/melezhik/chef-plugin/master/images/layout.png' /></p>
-
-<h2 id='chef_json_template'>chef json template</h2>
-
-<p>If you define one, chef json file will be generated based on this template.</p>
+<h1>Plugin advanced settings</h1>
 
 <ul>
-<li>
-<p>Check out chef <a href='http://wiki.opscode.com/display/chef/Setting+the+run_list+in+JSON+during+run+time'>wiki</a> to get know about chef json files.</p>
-</li>
-
-<li>
-<p>This is ERB template, so you can use <a href='http://www.stuartellis.eu/articles/erb/'>ERB</a> syntax here:</p>
-
-<pre><code> &lt;%
-     runlist = %w{foo bar baz}
-     chef_json = { :run_list =&gt; runlist.map { |r|  &quot;recipe[#{r}]&quot; } }
- %&gt;
- &lt;%= chef_json.to_json.to_s %&gt;</code></pre>
-</li>
+<li>ssh_indetity_file - Specifies a path to file from which the identity (private key) for public key authentication is read.</li>
+<li>chef_client_config - Specifies a path to file ( on  remote host ) from which chef client configuration is read, default values is /etc/chef/client.rb</li>
+<li>chef_json_template - Specifies chef attributes and run-list ( see chef documentation )</li>
+<li>dry_run - Use to run chef client in why-run mode, which is a type of chef-client run that does everything except modify the system, default value is false</li>
 </ul>
 
-<h1 id='prerequisites'>prerequisites</h1>
+<h1>user interface</h1>
+
+<p><img src="https://raw.github.com/melezhik/chef-plugin/master/images/layout.png" alt="layout" title="layout"></p>
+
+<h1>Chef attributes and run list settings</h1>
 
 <ul>
+<li><p>Use chef_json_template to define chef attributes and run list. 
+If you define one, plugin will parse chef<em>json</em>template data and stored result in file which in turn will passed as -j parameter into chef-client run.</p></li>
+<li><p>Please check out <a href="http://wiki.opscode.com/display/chef/Setting+the+run_list+in+JSON+during+run+time">chef wiki</a> to learn more about chef json files.</p></li>
+<li><p>Chef_json_template confirms <a href="http://www.stuartellis.eu/articles/erb/">ERB</a> template syntax. Here is example of chef_json_template:</p>
+
+<pre><code>&lt;%
+    runlist = %w{apache::server mysql}
+    chef_json = {
+        :run_list   =&gt; runlist.map { |r|  &quot;recipe[#{r}]&quot; } ,
+        :apache     =&gt; {
+            :version =&gt; 80
+        }
+    }
+%&gt;
+&lt;%= chef_json.to_json.to_s %&gt;
+</code></pre></li>
+</ul>
+
+<h1>prerequisites</h1>
+
+<ul>
+<li>ruby-runtime jenkins plugin</li>
 <li>ssh client</li>
 </ul>
 
-<h1 id='environment_setup'>Environment set-up</h1>
+<h1>Environment variables</h1>
 
-<p>You can set environment variables via &#8220;Jenkins/Configuration/Global properties/Environment variables&#8221; interface to adjust plugin behaviour.</p>
+<p>You can set some environment variables qith &quot;Jenkins/Configuration/Global properties/Environment variables&quot; . Here the list of varibales to be processed in the plugin:</p>
 
-<h2 id='lc_all'>LC_ALL</h2>
+<ul>
+<li>LC_ALL # sets encoding to avoid chef log issues </li>
+</ul>
 
-<p>Setup your standard encoding.</p>
+<h1>Download latest version</h1>
 
-<pre><code>ru_RU.UTF-8</code></pre>
-
-<h1 id='download_link'>download link</h1>
-
-<p><a href='http://repo.jenkins-ci.org/snapshots/org/jenkins-ci/ruby-plugins/chef/'>http://repo.jenkins-ci.org/snapshots/org/jenkins-ci/ruby-plugins/chef/</a></p>
-</body></html>
+<p>[http://repo.jenkins-ci.org/releases/org/jenkins-ci/ruby-plugins/chef/0.1.3/]</p>

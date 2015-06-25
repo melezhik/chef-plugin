@@ -8,30 +8,29 @@ Plugin starts ssh session on remote host using public key authentication and che
 
 # Plugin general settings
 
-## host - Specifies remote host to run chef client on.
-## login -  Specifies the user to log in as on the remote machine.
+- host - Specifies remote host to run chef client on.
+- login -  Specifies the user to log in as on the remote machine.
 
 # Plugin advanced settings
 
-## ssh_indetity_file - Specifies a path to file from which the identity (private key) for public key authentication is read.
-## chef_client_config - Specifies a path to file ( on  remote host ) from which chef client configuration is read, default values is /etc/chef/client.rb
-## chef_json_template - Specifies chef attributes and run-list ( see chef documentation )
-## dry_run - Use to run chef client in why-run mode, which is a type of chef-client run that does everything except modify the system, default value is false
-
-# features
-- chef json file generated from custom ERB template
-- ssh public-key authentication schema is used
-- optionally may be run in chef client in why run mode
+- ssh\_indetity\_file - Specifies a path to file from which the identity (private key) for public key authentication is read.
+- chef\_client\_config - Specifies a path to file ( on  remote host ) from which chef client configuration is read, default values is /etc/chef/client.rb
+- chef\_json\_template - Specifies chef attributes and run-list ( see chef documentation )
+- dry\_run - Use to run chef client in why-run mode, which is a type of chef-client run that does everything except modify the system, default value is false
 
 # user interface
 
 ![layout](https://raw.github.com/melezhik/chef-plugin/master/images/layout.png "layout")
 
-# chef_json_template
-If you define one, plugin will parse chef_json_template data and stored result in file which in turn will passed as -j parameter into chef-client run.
-Please check out chef [wiki](http://wiki.opscode.com/display/chef/Setting+the+run_list+in+JSON+during+run+time) to learn more about chef json files.
-Chef_json_template confirms [ERB](http://www.stuartellis.eu/articles/erb/) template syntax. Here is example of chef_json_template:
+# Chef attributes and run list settings
 
+- Use chef\_json\_template to define chef attributes and run list. 
+If you define one, plugin will parse chef_json_template data and stored result in file which in turn will passed as -j parameter into chef-client run.
+
+- Please check out [chef wiki](http://wiki.opscode.com/display/chef/Setting+the+run_list+in+JSON+during+run+time) to learn more about chef json files.
+
+- Chef\_json\_template confirms [ERB](http://www.stuartellis.eu/articles/erb/) template syntax. Here is example of chef\_json\_template:
+        
         <%
             runlist = %w{apache::server mysql}
             chef_json = {
@@ -42,7 +41,7 @@ Chef_json_template confirms [ERB](http://www.stuartellis.eu/articles/erb/) templ
             }
         %>
         <%= chef_json.to_json.to_s %>
-
+    
 # prerequisites
 - ruby-runtime jenkins plugin
 - ssh client
@@ -52,11 +51,8 @@ Chef_json_template confirms [ERB](http://www.stuartellis.eu/articles/erb/) templ
 
 You can set some environment variables qith "Jenkins/Configuration/Global properties/Environment variables" . Here the list of varibales to be processed in the plugin:
 
-## LC_ALL
-Encoding.
+- LC\_ALL # sets encoding to avoid chef log issues 
 
-    ru_RU.UTF-8
-
-# download latest version
+# Download latest version
 
 [http://repo.jenkins-ci.org/releases/org/jenkins-ci/ruby-plugins/chef/0.1.3/]
