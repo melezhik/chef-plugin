@@ -50,7 +50,7 @@ If you define one, plugin will parse chef_json_template data and stored result i
 You can set some environment variables qith "Jenkins/Configuration/Global properties/Environment variables" . Here the list of varibales to be processed in the plugin:
 
 - LC\_ALL # sets encoding to avoid chef log issues 
-
+ 
 # Download latest version
 
 [http://repo.jenkins-ci.org/releases/org/jenkins-ci/ruby-plugins/chef/0.1.4/]
