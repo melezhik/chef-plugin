@@ -1,8 +1,6 @@
 # SYNOPSIS
 
-This is jenkins plugin to run chef-client on remote host
-Brief description of how it works.
-
+This is jenkins plugin to run chef-client on remote host.
 Plugin starts ssh session on remote host using public key authentication and chef-client there.
 
 
