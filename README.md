@@ -13,10 +13,10 @@ Plugin starts ssh session on remote host using public key authentication and che
 
 - ssh\_indetity\_file - Specifies a path to file from which the identity (private key) for public key authentication is read.
 - chef\_client\_config - Specifies a path to file ( on  remote host ) from which chef client configuration is read, default values is /etc/chef/client.rb
-- chef\_json\_template - Specifies chef attributes and run-list ( see chef documentation )
-- dry\_run - Use to run chef client in why-run mode, which is a type of chef-client run that does everything except modify the system, default value is false
+- chef\_json\_template - Specifies chef attributes and run-list ( see chef documentation ).
+- dry\_run - Use to run chef client in why-run mode, which is a type of chef-client run that does everything except modify the system, default value is false.
 
-# user interface
+# User interface
 
 ![layout](https://raw.github.com/melezhik/chef-plugin/master/images/layout.png "layout")
 
@@ -40,7 +40,7 @@ If you define one, plugin will parse chef_json_template data and stored result i
         %>
         <%= chef_json.to_json.to_s %>
     
-# prerequisites
+# Prerequisites
 - ruby-runtime jenkins plugin
 - ssh client
 
@@ -53,4 +53,4 @@ You can set some environment variables qith "Jenkins/Configuration/Global proper
 
 # Download latest version
 
-[http://repo.jenkins-ci.org/releases/org/jenkins-ci/ruby-plugins/chef/0.1.3/]
+[http://repo.jenkins-ci.org/releases/org/jenkins-ci/ruby-plugins/chef/0.1.4/]
