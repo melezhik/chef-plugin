@@ -76,14 +76,14 @@ class ChefBuilder < Jenkins::Tasks::Builder
 
             cmd = []
             cmd << "export LC_ALL=#{env['LC_ALL']}" unless ( env['LC_ALL'].nil? || env['LC_ALL'].empty? )
-            cmd << "#{scp_command} #{workspace}/chef.json #{@ssh_login}@#{@ssh_host}:/tmp/#{@ssh_login}-chef.json"
+            cmd << "#{scp_command} #{workspace}/chef.json #{@ssh_login}@#{@ssh_host}:/tmp/#{job}-by-#{@ssh_login}-chef.json"
             build.abort unless launcher.execute("bash", "-c", cmd.join(' && '), { :out => listener } ) == 0
 
 
             cmd = []
             cmd << "export LC_ALL=#{env['LC_ALL']}" unless ( env['LC_ALL'].nil? || env['LC_ALL'].empty? )
 
-            cmd << "#{ssh_command} #{@ssh_login}@#{@ssh_host} sudo chef-client -l info -j /tmp/#{@ssh_login}-chef.json #{config_path} #{why_run_flag} #{chef_color_flag}"
+            cmd << "#{ssh_command} #{@ssh_login}@#{@ssh_host} 'sudo chef-client --force-formatter -l info -j /tmp/#{job}-by-#{@ssh_login}-chef.json #{config_path} #{why_run_flag} #{chef_color_flag}'"
             build.abort unless launcher.execute("bash", "-c", cmd.join(' && '), { :out => listener } ) == 0
 
     
