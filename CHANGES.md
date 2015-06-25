@@ -1,3 +1,7 @@
+# 0.1.5
+- add  -o 'StrictHostKeyChecking no' to ssh run
+- ship json data as file ( via scp ), so use file:// not http:// `resource' to avoid http related issues when run chef-client with -j parameter 
+
 # 0.1.4
 - ssh identity path option
 - regenerated and impoved documentation 

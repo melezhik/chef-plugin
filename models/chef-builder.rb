@@ -51,10 +51,6 @@ class ChefBuilder < Jenkins::Tasks::Builder
 
             File.open("#{workspace}/chef.json", 'w') {|f| f.write(JSON.pretty_generate(JSON.parse(json_str))) }
 
-            chef_json_url = "#{env['JENKINS_URL']}/job/#{job}/ws/chef.json"
-
-            listener.info @sc.info(chef_json_url, :title => 'chef json url')
-
             why_run_flag = ''
             if @dry_run == true 
                 listener.info @sc.info('dry run mode is ON, so will run chef-client with --why-run flag')
@@ -67,18 +63,27 @@ class ChefBuilder < Jenkins::Tasks::Builder
             end
 
             listener.info @sc.info(@ssh_host, :title => 'host')
-            cmd = []
-            cmd << "export LC_ALL=#{env['LC_ALL']}" unless ( env['LC_ALL'].nil? || env['LC_ALL'].empty? )
             config_path = ''
             config_path = " -c #{@chef_client_config}" unless (@chef_client_config.nil? ||  @chef_client_config.empty?)
 
-            ssh_command = 'ssh'
+            ssh_command = "ssh -o 'StrictHostKeyChecking no'"
+            scp_command = "scp -o 'StrictHostKeyChecking no'"
 
             unless ( @ssh_identity_path.nil? || @ssh_identity_path.empty? )
                 ssh_command << " -i #{@ssh_identity_path}"
+                scp_command << " -i #{@ssh_identity_path}"
             end
 
-            cmd << "#{ssh_command} #{@ssh_login}@#{@ssh_host} sudo chef-client -l info -j #{chef_json_url} #{config_path} #{why_run_flag} #{chef_color_flag}"
+            cmd = []
+            cmd << "export LC_ALL=#{env['LC_ALL']}" unless ( env['LC_ALL'].nil? || env['LC_ALL'].empty? )
+            cmd << "#{scp_command} #{workspace}/chef.json #{@ssh_login}@#{@ssh_host}:/tmp/#{@ssh_login}-chef.json"
+            build.abort unless launcher.execute("bash", "-c", cmd.join(' && '), { :out => listener } ) == 0
+
+
+            cmd = []
+            cmd << "export LC_ALL=#{env['LC_ALL']}" unless ( env['LC_ALL'].nil? || env['LC_ALL'].empty? )
+
+            cmd << "#{ssh_command} #{@ssh_login}@#{@ssh_host} sudo chef-client -l info -j /tmp/#{@ssh_login}-chef.json #{config_path} #{why_run_flag} #{chef_color_flag}"
             build.abort unless launcher.execute("bash", "-c", cmd.join(' && '), { :out => listener } ) == 0
 
     
