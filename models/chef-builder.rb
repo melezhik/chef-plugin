@@ -61,6 +61,11 @@ class ChefBuilder < Jenkins::Tasks::Builder
                 why_run_flag = '--why-run'
             end
 
+            chef_color_flag = ''
+            if @color_output == true 
+                chef_color_flag = '--color'
+            end
+
             listener.info @sc.info(@ssh_host, :title => 'host')
             cmd = []
             cmd << "export LC_ALL=#{env['LC_ALL']}" unless ( env['LC_ALL'].nil? || env['LC_ALL'].empty? )
@@ -73,7 +78,7 @@ class ChefBuilder < Jenkins::Tasks::Builder
                 ssh_command << " -i #{@ssh_identity_path}"
             end
 
-            cmd << "#{ssh_command} #{@ssh_login}@#{@ssh_host} sudo chef-client -l info -j #{chef_json_url} #{config_path} #{why_run_flag}"
+            cmd << "#{ssh_command} #{@ssh_login}@#{@ssh_host} sudo chef-client -l info -j #{chef_json_url} #{config_path} #{why_run_flag} #{chef_color_flag}"
             build.abort unless launcher.execute("bash", "-c", cmd.join(' && '), { :out => listener } ) == 0
 
     
