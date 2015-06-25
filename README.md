@@ -53,4 +53,4 @@ You can set some environment variables qith "Jenkins/Configuration/Global proper
  
 # Download latest version
 
-[http://repo.jenkins-ci.org/releases/org/jenkins-ci/ruby-plugins/chef/0.1.4/]
+[http://repo.jenkins-ci.org/releases/org/jenkins-ci/ruby-plugins/chef/0.1.5/]
