@@ -6,7 +6,7 @@ class ChefBuilder < Jenkins::Tasks::Builder
 
     attr_accessor  :enabled, :dry_run, :chef_json_template, :color_output
     attr_accessor  :ssh_host, :ssh_login, :ssh_identity_path, :chef_client_config
-    attr_accessor  :enabled_int, :dry_run_int
+    attr_accessor  :enabled_int, :dry_run_int, :color_output_int
 
     display_name "Run chef client on remote host"
 
@@ -21,6 +21,7 @@ class ChefBuilder < Jenkins::Tasks::Builder
         @ssh_identity_path = attrs['ssh_identity_path']
         @dry_run_int = @dry_run == true ? 1 : 0
         @enabled_int = @enabled == true ? 1 : 0
+        @color_output_int = @color_output_int == true ? 1 : 0
     end
 
     def prebuild(build, listener)

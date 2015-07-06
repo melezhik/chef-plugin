@@ -37,7 +37,7 @@ f.advanced do
     end
 
     f.entry(:title => 'color output', :field => 'color_output', :description => "enable/disable color output") do
-      f.checkbox
+      f.checkbox :checked => instance.get('color_output_int') == 1
     end
 
 
