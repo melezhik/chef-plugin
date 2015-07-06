@@ -1,7 +1,7 @@
 Jenkins::Plugin::Specification.new do |plugin|
   plugin.name = "chef"
   plugin.display_name = "Chef Plugin"
-  plugin.version = '0.1.5'
+  plugin.version = '0.1.6'
   plugin.description = 'run chef-client remotely under Jenkins CI'
 
   # You should create a wiki-page for your plugin when you publish it, see
@@ -14,7 +14,7 @@ Jenkins::Plugin::Specification.new do |plugin|
   plugin.uses_repository :github => "jenkinsci/chef-plugin"
 
   # This is a required dependency for every ruby plugin.
-  plugin.depends_on 'ruby-runtime', '0.10'
+  plugin.depends_on 'ruby-runtime', '0.12'
 
   # This is a sample dependency for a Jenkins plugin, 'git'.
   #plugin.depends_on 'git', '1.1.11'

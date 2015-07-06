@@ -1,11 +1,20 @@
+<!--
+
+
+<%= instance.methods %>
+
+-->
+
 <%
 f = taglib("/lib/form")
 
-f.entry(:title => 'enabled', :field => 'enabled', :description => "enable/disable plugin") do
-  f.checkbox
+f.entry(:title => 'enabled', :field => 'enabled', :description => "enable/disable plugin #{@enabled_int}" ) do
+  f.checkbox :checked => ( instance.get('enabled_int').nil?  or  instance.get('enabled_int') == 1 ) 
 end
-f.entry(:title => 'dry run', :field => 'dry_run', :description => "run in dry run mode") do
-  f.checkbox
+
+
+f.entry(:title => 'dry run', :field => 'dry_run', :description => "run in dry run mode"  ) do
+  f.checkbox :checked => instance.get('dry_run_int') == 1
 end
 f.entry(:title => 'ssh host', :field => 'ssh_host', :description => "remote host") do
   f.textbox
@@ -16,6 +25,7 @@ end
 f.entry(:title => 'chef json template', :field => 'chef_json_template', :description => "chef attributes and run-list") do
   f.textarea
 end
+
 f.advanced do    
 
     f.entry(:title => 'ssh identity path path', :field => 'ssh_identity_path', :description => "path to file from which the identity (private key) for public key authentication is read") do
@@ -29,6 +39,8 @@ f.advanced do
     f.entry(:title => 'color output', :field => 'color_output', :description => "enable/disable color output") do
       f.checkbox
     end
+
+
 end
 
 %>
