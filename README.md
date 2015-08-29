@@ -51,6 +51,7 @@ You can set some environment variables qith "Jenkins/Configuration/Global proper
 
 - LC\_ALL # sets encoding to avoid chef log issues 
  
-# Download latest version
+# Latest stable version
 
-[http://maven.jenkins-ci.org/content/repositories/releases/org/jenkins-ci/ruby-plugins/chef/0.1.6]
+[0.1.7](http://maven.jenkins-ci.org/content/repositories/releases/org/jenkins-ci/ruby-plugins/chef/0.1.7)
+
