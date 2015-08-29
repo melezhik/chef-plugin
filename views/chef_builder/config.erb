@@ -1,20 +1,21 @@
-<!--
-
-
-<%= instance.methods %>
-
--->
-
 <%
 f = taglib("/lib/form")
 
 f.entry(:title => 'enabled', :field => 'enabled', :description => "enable/disable plugin #{@enabled_int}" ) do
-  f.checkbox :checked => ( instance.get('enabled_int').nil?  or  instance.get('enabled_int') == 1 ) 
+    if instance.nil?
+        f.checkbox :checked => true  
+    else
+        f.checkbox :checked => ( instance.get('enabled_int').nil?  or  instance.get('enabled_int') == 1 ) 
+    end
 end
 
 
 f.entry(:title => 'dry run', :field => 'dry_run', :description => "run in dry run mode"  ) do
-  f.checkbox :checked => instance.get('dry_run_int') == 1
+    if instance.nil?
+        f.checkbox :checked => false
+    else
+        f.checkbox :checked => instance.get('dry_run_int') == 1
+    end
 end
 f.entry(:title => 'ssh host', :field => 'ssh_host', :description => "remote host") do
   f.textbox
@@ -37,7 +38,11 @@ f.advanced do
     end
 
     f.entry(:title => 'color output', :field => 'color_output', :description => "enable/disable color output") do
-      f.checkbox :checked => instance.get('color_output_int') == 1
+        if instance.nil?
+            f.checkbox :checked => false
+        else
+            f.checkbox :checked => instance.get('color_output_int') == 1
+        end
     end
 
 
