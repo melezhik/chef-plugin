@@ -1,5 +1,5 @@
 # 0.1.7
-- [issue7](https://github.com/melezhik/chef-plugin/issues/7) - views/chef_builder/config.erb - workaround when instance method return nil, it happens when you create build_step
+- [issue7](https://github.com/melezhik/chef-plugin/issues/7) - views/chef_builder/config.erb - workaround when instance method return nil, it happens when you create build_step mmmmm
 
 # 0.1.6
 - fix for `dry_run, enabled settings get reset after jenkins restart'
