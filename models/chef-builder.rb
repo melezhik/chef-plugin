@@ -69,7 +69,7 @@ class ChefBuilder < Jenkins::Tasks::Builder
 
             listener.info @sc.info(@ssh_host, :title => 'host')
             config_path = ''
-            config_path = " -c #{@chef_client_config}" unless (@chef_client_config.nil? ||  @chef_client_config.empty?)
+            // config_path = " -c #{@chef_client_config}" unless (@chef_client_config.nil? ||  @chef_client_config.empty?)
 
             ssh_command = "ssh -o 'StrictHostKeyChecking no'"
             scp_command = "scp -o 'StrictHostKeyChecking no'"
