@@ -37,7 +37,7 @@ f.advanced do
       f.textbox
     end
 
-    f.entry(:title => 'non-interactive', :field => 'non_interactive', :description => "sudo calls to client are non-interactive") do
+    f.entry(:title => 'non-interactive mode', :field => 'non_interactive', :description => "sudo calls to client are non-interactive") do
         if instance.nil?
             f.checkbox :checked => true
         else
