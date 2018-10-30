@@ -4,9 +4,9 @@ require 'simple/console'
 
 class ChefBuilder < Jenkins::Tasks::Builder
 
-    attr_accessor  :enabled, :dry_run, :chef_json_template, :color_output
+    attr_accessor  :enabled, :dry_run, :chef_json_template, :non_interactive, :color_output
     attr_accessor  :ssh_host, :ssh_login, :ssh_identity_path, :chef_client_config
-    attr_accessor  :enabled_int, :dry_run_int, :color_output_int
+    attr_accessor  :enabled_int, :dry_run_int, :non_interactive_int, :color_output_int
 
     display_name "Run chef client on remote host"
 
@@ -17,11 +17,14 @@ class ChefBuilder < Jenkins::Tasks::Builder
         @ssh_host = attrs["ssh_host"]
         @ssh_login = attrs["ssh_login"]
         @chef_client_config = attrs["chef_client_config"]
+        @non_interactive = attrs['non_interactive']
         @color_output = attrs['color_output']
         @ssh_identity_path = attrs['ssh_identity_path']
         @dry_run_int = @dry_run == true ? 1 : 0
         @enabled_int = @enabled == true ? 1 : 0
-        @color_output_int = @color_output_int == true ? 1 : 0
+        @non_interactive_int = @non_interactive == true ? 1 : 0
+        @non_interactive_switch = @non_interactive == true ? "-n" : ""
+        @color_output_int = @color_output == true ? 1 : 0
     end
 
     def prebuild(build, listener)
@@ -88,7 +91,7 @@ class ChefBuilder < Jenkins::Tasks::Builder
             cmd = []
             cmd << "export LC_ALL=#{env['LC_ALL']}" unless ( env['LC_ALL'].nil? || env['LC_ALL'].empty? )
 
-            cmd << "#{ssh_command} #{@ssh_login}@#{@ssh_host} 'sudo chef-client --force-formatter -l info -j /tmp/#{job}-by-#{@ssh_login}-chef.json #{config_path} #{why_run_flag} #{chef_color_flag}'"
+            cmd << "#{ssh_command} #{@ssh_login}@#{@ssh_host} 'sudo #{@non_interactive_switch} chef-client --force-formatter -l info -j /tmp/#{job}-by-#{@ssh_login}-chef.json #{config_path} #{why_run_flag} #{chef_color_flag}'"
             build.abort unless launcher.execute("bash", "-c", cmd.join(' && '), { :out => listener } ) == 0
 
     

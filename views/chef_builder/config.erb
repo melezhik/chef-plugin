@@ -37,6 +37,14 @@ f.advanced do
       f.textbox
     end
 
+    f.entry(:title => 'non-interactive mode', :field => 'non_interactive', :description => "sudo calls to client are non-interactive") do
+        if instance.nil?
+            f.checkbox :checked => true
+        else
+            f.checkbox :checked => (instance.get('non_interactive_int').nil? or instance.get('non_interactive_int') == 1)
+        end
+    end
+
     f.entry(:title => 'color output', :field => 'color_output', :description => "enable/disable color output") do
         if instance.nil?
             f.checkbox :checked => false
@@ -44,7 +52,6 @@ f.advanced do
             f.checkbox :checked => instance.get('color_output_int') == 1
         end
     end
-
 
 end
 
